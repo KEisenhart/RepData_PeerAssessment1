@@ -290,14 +290,14 @@ not_ok&lt;- sum( !data_check )
 ok&lt;- sum( data_check )
 </code></pre>
 
-<p>Of the 17568 records, 2304 are calculated to be NAs and 15264 are valid.</p>
+<p>Of the 17568 records, 2304 are calculated to contain NAs and 15264 are valid records with no NAs.</p>
 
 <p>Question 2</p>
 
 <p>This is my strategy for filling in all of the missing values in the dataset. </p>
 
 <ol>
-<li>I&#39;m going to use the median value for each 5 minute interval. I created a dataframe containing the median steps taken per time interval with NAs removed (see df in code chunck below). I opted not to use the MEDIAN or the MEAN for each day where NAs occurred because the NAs appeared for the entire day, not just sections of it. This occurred for 8 days worth of reporting. The MEAN or MEDIAN for those days would have been just 0. Boring.</li>
+<li>I&#39;m going to use the median value for each 5 minute interval. I created a dataframe containing the median steps taken per time interval with NAs removed (see df in code chunk below). I opted not to use the MEDIAN or the MEAN for each day where NAs occurred because the NAs appeared for the entire day, not just sections of it. This occurred for 8 days worth of reporting. The MEAN or MEDIAN for those days would have been just 0. Boring.</li>
 <li>Using the logical array (data_check) I created in Part 1 of this question, I look for rows with steps equal to NA. I replace the step value (in dataframe d) with the median computed for its time interval (found in the aggregate computed below, df).  Example - any NAs found at the time interval equal to 5 will be replaced with the median computed for that time interval (as found in df).</li>
 </ol>
 
@@ -313,7 +313,7 @@ source( &quot;Imputing.R&quot; )
 fixed_one&lt;- Imputing_NAs( df, d, data_check )
 </code></pre>
 
-<p>I opted to put the logic I needed to replace all NA values with interval medians into a seperate source file called Imputing.R that can be found in this github repo.</p>
+<p>I opted to put the logic I needed to replace all NA values with interval medians into a separate source file called Imputing.R that can be found in this github repo.</p>
 
 <p>Question 4</p>
 
@@ -381,7 +381,7 @@ the_new_mean&lt;- mean( stuff_with_median$ave )
 
 <p>Question  1</p>
 
-<p>Data frame fixed_one was created in an earlier code chunck from a call to function Imputing_NAs, it is the dataset with the filled-in missing values. Now I&#39;m going to add a new column and fill it with either weekend or weekday as appropriate for the data in the date column.</p>
+<p>Data frame fixed_one was created in an earlier code chunk from a call to function Imputing_NAs, it is the dataset with the filled-in missing values. Now I&#39;m going to add a new column and fill it with either weekend or weekday as appropriate for the data in the date column.</p>
 
 <pre><code class="r">#Create a new column called Day with two possible values, weekday or weekend
 fixed_one$Day&lt;- factor( fixed_one, levels = c( &quot;weekday&quot;, &quot;weekend&quot; ) )
@@ -394,12 +394,12 @@ check_this_entry&lt;- act_patterns[ 1500, ]
 and_check_this_entry&lt;- act_patterns[ 17000, ]
 </code></pre>
 
-<p>I opted to put the logic I needed to determine if a given day was a weekday or weekend into a seperate source file called Find_Day_type.R that can be found in this github repo.
+<p>I opted to put the logic I needed to determine if a given day was a weekday or weekend into a separate source file called Find_Day_type.R that can be found in this github repo.
 I spot checked act_patterns by picking a couple of rows at random. I found that row 1500 contained my calculated outcome of:[0, 2012-10-06, 455, weekend] which was in fact a weekend day on Saturday and that row 17000 contains my calculated:[0, 2012-11-29, 35, weekday] and that was a weekday on Thursday.( I used any simple generic date calculator from the web to do my verification.)</p>
 
 <p>Question 2</p>
 
-<p>First, get seperate average number of steps taken, one for weekdays another for weekends.</p>
+<p>First, get separate average number of steps taken, one for weekdays another for weekends.</p>
 
 <pre><code class="r">weekdays_only&lt;- subset( act_patterns, act_patterns$Day != &quot;weekend&quot; )
 weekends_only&lt;- subset( act_patterns, act_patterns$Day != &quot;weekday&quot; )

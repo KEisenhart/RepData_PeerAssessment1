@@ -94,13 +94,13 @@ data_check<- complete.cases( d )
 not_ok<- sum( !data_check )
 ok<- sum( data_check )
 ```
-Of the 17568 records, 2304 are calculated to be NAs and 15264 are valid.
+Of the 17568 records, 2304 are calculated to contain NAs and 15264 are valid records with no NAs.
 
 Question 2
 
 This is my strategy for filling in all of the missing values in the dataset. 
 
-1. I'm going to use the median value for each 5 minute interval. I created a dataframe containing the median steps taken per time interval with NAs removed (see df in code chunck below). I opted not to use the MEDIAN or the MEAN for each day where NAs occurred because the NAs appeared for the entire day, not just sections of it. This occurred for 8 days worth of reporting. The MEAN or MEDIAN for those days would have been just 0. Boring.
+1. I'm going to use the median value for each 5 minute interval. I created a dataframe containing the median steps taken per time interval with NAs removed (see df in code chunk below). I opted not to use the MEDIAN or the MEAN for each day where NAs occurred because the NAs appeared for the entire day, not just sections of it. This occurred for 8 days worth of reporting. The MEAN or MEDIAN for those days would have been just 0. Boring.
 2. Using the logical array (data_check) I created in Part 1 of this question, I look for rows with steps equal to NA. I replace the step value (in dataframe d) with the median computed for its time interval (found in the aggregate computed below, df).  Example - any NAs found at the time interval equal to 5 will be replaced with the median computed for that time interval (as found in df).
 
 Question 3
@@ -117,7 +117,7 @@ source( "Imputing.R" )
 fixed_one<- Imputing_NAs( df, d, data_check )
 ```
 
-I opted to put the logic I needed to replace all NA values with interval medians into a seperate source file called Imputing.R that can be found in this github repo.
+I opted to put the logic I needed to replace all NA values with interval medians into a separate source file called Imputing.R that can be found in this github repo.
 
 Question 4
 
@@ -190,7 +190,7 @@ The impact to the value of mean by giving the NAs values will be to increase or 
 
 Question  1
 
-Data frame fixed_one was created in an earlier code chunck from a call to function Imputing_NAs, it is the dataset with the filled-in missing values. Now I'm going to add a new column and fill it with either weekend or weekday as appropriate for the data in the date column.
+Data frame fixed_one was created in an earlier code chunk from a call to function Imputing_NAs, it is the dataset with the filled-in missing values. Now I'm going to add a new column and fill it with either weekend or weekday as appropriate for the data in the date column.
 
 
 ```r
@@ -204,12 +204,12 @@ act_patterns<- Find_Day_Type( fixed_one )
 check_this_entry<- act_patterns[ 1500, ]
 and_check_this_entry<- act_patterns[ 17000, ]
 ```
-I opted to put the logic I needed to determine if a given day was a weekday or weekend into a seperate source file called Find_Day_type.R that can be found in this github repo.
+I opted to put the logic I needed to determine if a given day was a weekday or weekend into a separate source file called Find_Day_type.R that can be found in this github repo.
 I spot checked act_patterns by picking a couple of rows at random. I found that row 1500 contained my calculated outcome of:[0, 2012-10-06, 455, weekend] which was in fact a weekend day on Saturday and that row 17000 contains my calculated:[0, 2012-11-29, 35, weekday] and that was a weekday on Thursday.( I used any simple generic date calculator from the web to do my verification.)
 
 Question 2
 
-First, get seperate average number of steps taken, one for weekdays another for weekends.
+First, get separate average number of steps taken, one for weekdays another for weekends.
 
 
 ```r
